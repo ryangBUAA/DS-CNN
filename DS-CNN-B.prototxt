@@ -1,0 +1,352 @@
+name: "DSCNN"
+input: "data"
+input_dim: 1
+input_dim: 1
+input_dim: 84
+input_dim: 84
+
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    kernel_size: 9
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "conv1"
+  top: "conv2"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 7
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+
+layer {
+  name: "conv20"
+  type: "Convolution"
+  bottom: "conv2"
+  top: "conv20"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 3
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu20"
+  type: "ReLU"
+  bottom: "conv20"
+  top: "conv20"
+  param { 
+}
+
+layer {
+  name: "conv22"
+  type: "Convolution"
+  bottom: "conv20"
+  top: "conv22"
+  param {
+    lr_mult: 0
+  }
+  param {
+    lr_mult: 0
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 1
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu22"
+  type: "ReLU"
+  bottom: "conv22"
+  top: "conv22" 
+}
+
+layer {
+  name: "conv11"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv11"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 0.1
+  }
+  convolution_param {
+    num_output: 128
+    kernel_size: 9
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu11"
+  type: "ReLU"
+  bottom: "conv11"
+  top: "conv11"
+}
+
+layer {
+  name: "concat1"
+  bottom: "conv1"
+  bottom: "conv11"
+  top: "out1"
+  type: "Concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+layer {
+  name: "conv21"
+  type: "Convolution"
+  bottom: "out1"
+  top: "conv21"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 0.1
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 7
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu21"
+  type: "PReLU"
+  bottom: "conv21"
+  top: "conv21"
+}
+
+layer {
+  name: "concat2"
+  bottom: "conv2"
+  bottom: "conv21"
+  top: "out2"
+  type: "Concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+layer {
+  name: "conv201"
+  type: "Convolution"
+  bottom: "out2"
+  top: "conv201"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 0.1
+  }
+  convolution_param {
+    num_output: 64
+    kernel_size: 3
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu201"
+  type: "ReLU"
+  bottom: "conv201"
+  top: "conv201"
+}
+
+layer {
+  name: "concat20"
+  bottom: "conv20"
+  bottom: "conv201"
+  top: "out20"
+  type: "Concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+layer {
+  name: "conv221"
+  type: "Convolution"
+  bottom: "out20"
+  top: "conv221"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 0.1
+  }
+  convolution_param {
+    num_output: 32
+    kernel_size: 1
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+      
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "relu221"
+  type: "ReLU"
+  bottom: "conv221"
+  top: "conv221"
+}
+
+layer {
+  name: "concat22"
+  bottom: "conv22"
+  bottom: "conv221"
+  top: "out22"
+  type: "Concat"
+  concat_param {
+    axis: 1
+  }
+}
+
+layer {
+  name: "conv31"
+  type: "Convolution"
+  bottom: "out22"
+  top: "conv31"
+  param {
+    lr_mult: 0.1
+  }
+  param {
+    lr_mult: 0.1
+  }
+  convolution_param {
+    num_output: 1
+    kernel_size: 5
+    stride: 1
+    pad: 0
+    weight_filler {
+      type: "msra"
+     
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+
